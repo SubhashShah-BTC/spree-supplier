@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-SpreeSeller
-===========
-
-Introduction goes here.
-
 Installation
 ------------
 
