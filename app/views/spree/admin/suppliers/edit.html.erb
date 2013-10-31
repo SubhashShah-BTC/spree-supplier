@@ -1,0 +1,53 @@
+<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+
+<% content_for :page_title do %>
+  <%= Spree.t(:editing_supplier) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:back_to_suppliers_list), spree.admin_suppliers_path, :icon => 'icon-arrow-left' %>
+  </li>
+<% end %>
+
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @supplier } %>
+
+<%= form_for [:admin, @supplier] do |f| %>
+  <fieldset class="no-border-top">
+    <%= render :partial => 'form', :locals => { :f => f } %>
+    <div class="clear"></div>
+    <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+  </fieldset>
+<% end %>
+
+<% if @suppliers.any? %>
+<table class="index sortable" id="listing_suppliers">
+  <colgroup>
+    <col style="width: 10%">
+    <col style="width: 65%">
+    <col style="width: 25%">
+  </colgroup>
+  <thead>
+    <tr data-hook="option_header">
+      <th class="no-border"></th>
+      <th><%= Spree.t(:name) %></th>
+      <th class="actions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @suppliers.each do |supplier| %>
+      <tr class="spree_supplier <%= cycle('odd', 'even')%>" id="<%= spree_dom_id supplier %>" data-hook="option_row">
+        <td class="no-border"><span class="handle"></span></td>
+        <td class="align-center"><%= supplier.supplier_name %></td>
+        <td class="actions">
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <div class="alpha twelve columns no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: I18n.t(:supplier)) %>,
+    <%= link_to Spree.t(:add_one), new_admin_supplier_path %>!
+  </div>
+<% end %>

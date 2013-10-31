@@ -1,0 +1,47 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:suppliers) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li id="new_supplier_link">
+    <%= button_link_to Spree.t(:new_supplier), new_admin_supplier_url, { :remote => true, :icon => 'icon-plus', :id => 'new_supplier_link' } %>
+  </li>
+<% end %>
+
+<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+
+<div id="new_supplier"></div>
+
+<% if @suppliers.any? %>
+<table class="index sortable" id="listing_suppliers">
+  <colgroup>
+    <col style="width: 10%">
+    <col style="width: 55%">
+    <col style="width: 35%">
+  </colgroup>
+  <thead>
+    <tr data-hook="option_header">
+      <th class="no-border"></th>
+      <th><%= Spree.t(:name) %></th>
+      <th class="actions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @suppliers.each do |supplier| %>
+      <tr class="spree_supplier <%= cycle('odd', 'even')%>" id="<%= spree_dom_id supplier %>" data-hook="option_row">
+        <td class="no-border"><span class="handle"></span></td>
+        <td class="align-center"><%= supplier.supplier_name %></td>
+        <td class="actions">
+          <%= link_to_edit(supplier, :class => 'admin_edit_supplier', :no_text => true) %>
+          <%= link_to_delete(supplier, :no_text => true) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <div class="alpha twelve columns no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: I18n.t(:supplier)) %>,
+    <%= link_to Spree.t(:add_one), new_admin_supplier_path %>!
+  </div>
+<% end %>

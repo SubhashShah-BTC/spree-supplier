@@ -1,0 +1,9 @@
+<div data-hook="admin_seller_form_fields" class="align-center row">
+  <div class="alpha eight columns">
+    <%= f.field_container :supplier_name do %>
+      <%= f.label :supplier_name, Spree.t(:supplier_name) %> <span class="required">*</span><br />
+      <%= f.text_field :supplier_name, :class => "fullwidth" %>
+      <%= f.error_message_on :supplier_name %>
+    <% end %>
+  </div>
+</div>
